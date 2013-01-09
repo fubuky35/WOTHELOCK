@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="entries_players">
+        <item>Human</item>
+        <item>Computer Level 1</item>
+        <item>Computer Level 2</item>
+        <item>Computer Level 3</item>
+    </string-array>
+    <string-array name="entryvalues_palyers">
+        <item>-1</item>
+        <item>1</item> 
+        <item>2</item>
+        <item>3</item> 
+    </string-array>
+    <string-array name="mail_send_times">
+        <item>10秒</item>
+        <item>30秒</item>
+        <item>1分</item>
+        <item>3分</item>
+        <item>5分</item>
+        <item>10分</item>
+    </string-array>
+    <string-array name="mail_send_times_msec">
+        <item>10000</item>
+        <item>30000</item>
+        <item>60000</item>
+        <item>180000</item>
+        <item>300000</item>
+        <item>600000</item>
+    </string-array>
+</resources> 

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<color name="screen_bg">#046004</color>    
+	<color name="screen_bg2">#70C070</color>    
+
+	<color name="board_bg">#00AA00</color>    
+	<color name="board_border">#282828</color>    
+  
+	<color name="cell_fg_white">#FFFFFF</color>    
+	<color name="cell_fg_black">#000000</color>    
+	<color name="cell_bg_available">#FFCCCC</color>    
+	<color name="cell_fg_current">#FF0000</color>    
+
+	<color name="text_fg">#F0F0F0</color>    
+	<color name="turn_rect">#FFFFFF</color>     
+	<color name="winner_rect">#0000FF</color>     
+
+	<color name="winner_text">#F0FFFF00</color>     
+	<color name="winner_text_shadow">#000000</color>     
+	
+	<color name="touch_marker">#0000FF</color>     
+</resources>

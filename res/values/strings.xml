@@ -1,0 +1,60 @@
+<resources>
+
+    <string name="app_name">ヲせロック！</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="gmail_tail">\@gmail.com</string>
+    <string name="password">送信元アカウントのパスワード</string>
+    <string name="account_send">送信元アカウント(Gmail)</string>
+    <string name="address">宛先アドレス</string>
+    <string name="back">1つ戻る</string>
+    <string name="detect">決定</string>
+    <string name="pref_lock_enable">ロックを使用する</string>
+    <string name="pref_lock_setting">ロックパターンの設定</string>
+    <string name="pref_lock_setting_hint">ロックパターンを設定します</string>
+    <string name="pref_mail_enable">アラートメールを送る</string>
+    <string name="pref_mail_enable_hint">一定時間以内にロックが解除されなかった場合にアラートメールを送るよう設定します</string>
+    <string name="pref_mail_time">メール送信待ち時間</string>
+    <string name="pref_mail_time_hint_head">ロック解除に</string>
+    <string name="pref_mail_time_hint_tail">以上かかったらアラートメールを送信します</string>
+    <string name="pref_mail_account">メールアカウントの設定</string>
+    <string name="pref_mail_account_hint">アラートメールの送信元アカウントと宛先アドレスを設定します</string>
+    <string name="send_test">送信テスト</string>
+    <string name="lock_test">ロック解除テスト</string>
+    <string name="lock_test_hint">設定したロックパターンをテストします</string>
+    <string name="lock">ロック設定</string>
+    <string name="alert_mail">アラートメール設定</string>
+    
+    <string name="msg_enable">有効</string>
+    <string name="msg_disanable">無効</string>
+    <string name="msg_lock_pattern_nothing">有効なロックパターンが設定されていません</string>
+    <string name="msg_lock_pattern_detect">ロックパターンが設定されました</string>
+    <string name="msg_lock_disanable">「ロック画面を使用する」がチェックされていません</string>
+    <string name="msg_mail_success">メールを送信しました</string>
+    <string name="msg_mail_error">メールの送信に失敗しました</string>
+    
+    <string name="string_minite">分</string>
+    <string name="string_second">秒</string>
+     
+    <string name="mail_sending">メール送信中</string>
+    <string name="mail_test_subject">【ヲせロック！】メール送信テスト</string>
+    <string name="mail_test_text">アラートメール送信テスト</string>
+    <string name="mail_subject">【ヲせロック！】警告：メール送信待ち時間超過</string>
+    <string name="mail_text_head">ロック解除操作を開始してから設定時間(</string>
+    <string name="mail_text_tail">)を経過しました。ロックを設定した端末をご確認ください。</string>
+    
+    <string name="key_lock_enable">reversi_lock_enable</string>
+    <string name="key_lock_pattern_count">lock_pattern_count</string>
+    <string name="key_lock_pattern_x">lock_pattern_x</string>
+    <string name="key_lock_pattern_y">lock_pattern_y</string>
+    <string name="key_lock_test">lock_test</string>
+    <string name="key_mail_enable">mail_enable</string>
+    <string name="key_mail_from_account">mail_from_account</string>
+    <string name="key_mail_from_password">mail_from_password</string>
+    <string name="key_mail_to">mail_to</string>
+    <string name="key_mail_send_time">mail_send_time</string>
+    
+    <string name="default_mail_time">30000</string>
+
+</resources>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orderingFromXml="true" >
+
+    <PreferenceScreen
+        android:summary="@string/pref_mail_account_hint"
+        android:title="@string/pref_mail_account" >
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.gmail.fubuky35.wothelock.mail.SettingMailActivity"
+            android:targetPackage="com.gmail.fubuky35.wothelock" />
+    </PreferenceScreen>
+
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="@string/key_mail_enable"
+        android:summary="@string/pref_mail_enable_hint"
+        android:title="@string/pref_mail_enable" />
+
+    <ListPreference
+        android:defaultValue="@string/default_mail_time"
+        android:dialogTitle="@string/pref_mail_time"
+        android:entries="@array/mail_send_times"
+        android:entryValues="@array/mail_send_times_msec"
+        android:key="@string/key_mail_send_time"
+        android:title="@string/pref_mail_time" />
+
+</PreferenceScreen>
