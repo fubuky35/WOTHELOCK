@@ -30,6 +30,8 @@ public class SaveLoadManager {
 	private static String mGmailTail = null;
 	private static String mDefaultTimes = null;
 	
+	private static final String TEMP_KEY = "temp_";
+	
 	private SaveLoadManager(){}
 	
 	private static boolean init(Context context){
@@ -61,6 +63,30 @@ public class SaveLoadManager {
 		
 		mGmailTail = context.getString(R.string.gmail_tail);
 		mDefaultTimes = context.getString(R.string.default_mail_time);
+	}
+	
+	public void tmpSaveString(String key, String data){
+		Editor e = mSharedPreferences.edit();
+
+		e.putString(TEMP_KEY + key, data);
+
+		e.commit();
+	}
+	
+	public String tmpLoadString(String key){
+		return mSharedPreferences.getString(TEMP_KEY + key, null);
+	}
+	
+	public void tmpSaveBoolean(String key, boolean data){
+		Editor e = mSharedPreferences.edit();
+
+		e.putBoolean(TEMP_KEY + key, data);
+
+		e.commit();
+	}
+	
+	public boolean tmpLoadBoolean(String key){
+		return mSharedPreferences.getBoolean(TEMP_KEY + key, false);
 	}
 	
 	public boolean loadLockEnable() {

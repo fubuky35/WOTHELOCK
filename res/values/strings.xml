@@ -9,7 +9,8 @@
     <string name="account_send">送信元アカウント(Gmail)</string>
     <string name="address">宛先アドレス</string>
     <string name="back">1つ戻る</string>
-    <string name="detect">決定</string>
+    <string name="save">保存</string>
+    <string name="get_my_account">端末登録アカウント</string>
     <string name="pref_lock_enable">ロックを使用する</string>
     <string name="pref_lock_setting">ロックパターンの設定</string>
     <string name="pref_lock_setting_hint">ロックパターンを設定します</string>

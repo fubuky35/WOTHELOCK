@@ -178,7 +178,12 @@ public class WothelockPreferenceActivity extends PreferenceActivity {
         }
         
         public void dispSummary(){
-        	SaveLoadManager slm = SaveLoadManager.getInstance(getActivity());
+        	
+        	// なぜかメール送信テスト後にロックの有効/無効をいじるとnullでくる　謎
+        	if(null == getActivity()){
+        		return;
+        	}
+        	     
         	
         	ListPreference list = (ListPreference) findPreference(getString(R.string.key_mail_send_time));
         	

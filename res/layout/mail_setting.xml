@@ -34,7 +34,20 @@
             android:text="@string/gmail_tail"
             android:textAppearance="?android:attr/textAppearanceMedium" />
     </LinearLayout>
-
+            <Button
+            android:id="@+id/btn_my_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/get_my_account"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_gravity="right" />
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
@@ -62,12 +75,24 @@
         android:text="@string/address"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <EditText
-        android:id="@+id/et_to_address"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textEmailAddress" />
+        android:layout_height="wrap_content" >
+
+        <EditText
+            android:id="@+id/et_to_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="textEmailAddress" />
+
+        <ImageButton
+            android:id="@+id/btn_address_book"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_input_get" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textView8"
@@ -99,7 +124,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@android:string/ok" />
+            android:text="@string/save" />
     </LinearLayout>
 
     <TextView
@@ -132,7 +157,7 @@
         android:id="@+id/progressbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="invisible" 
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        android:visibility="invisible" />
 
 </LinearLayout>
