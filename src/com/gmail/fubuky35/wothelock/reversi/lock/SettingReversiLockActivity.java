@@ -3,15 +3,10 @@ package com.gmail.fubuky35.wothelock.reversi.lock;
 import java.util.ArrayList;
 
 import com.gmail.fubuky35.wothelock.R;
-import com.gmail.fubuky35.wothelock.R.id;
 import com.gmail.fubuky35.wothelock.reversi.Utils;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;

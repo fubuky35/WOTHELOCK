@@ -1,4 +1,4 @@
-package com.gmail.fubuky35.wothelock.reversi;
+﻿package com.gmail.fubuky35.wothelock.reversi;
 
 import android.util.Log;
 

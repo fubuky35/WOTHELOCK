@@ -1,4 +1,4 @@
-package com.gmail.fubuky35.wothelock.mail;
+﻿package com.gmail.fubuky35.wothelock.mail;
 
 import java.util.ArrayList;
 
@@ -53,7 +53,7 @@ public class SettingMailActivity extends Activity implements OnClickListener{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+		//
 		setContentView(R.layout.mail_setting);
 		
 		mBtnOk = (Button) findViewById(R.id.btn_mail_ok);
@@ -168,6 +168,7 @@ public class SettingMailActivity extends Activity implements OnClickListener{
 			
 			break;
 		case R.id.btn_address_book:
+			disableActivity();
 			Intent pickIntent = new Intent(Intent.ACTION_PICK,
 					ContactsContract.Contacts.CONTENT_URI);
 			startActivityForResult(pickIntent, PICK_CONTACT);
@@ -258,7 +259,9 @@ public class SettingMailActivity extends Activity implements OnClickListener{
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-
+		
+		enableActivity();
+		
 		switch (requestCode) {
 			case PICK_CONTACT:
 				if (resultCode == Activity.RESULT_OK) {

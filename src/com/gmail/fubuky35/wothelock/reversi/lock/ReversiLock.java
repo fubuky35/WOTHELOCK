@@ -1,12 +1,10 @@
-package com.gmail.fubuky35.wothelock.reversi.lock;
+﻿package com.gmail.fubuky35.wothelock.reversi.lock;
 
 import com.gmail.fubuky35.wothelock.lock.LockUtil;
 import com.gmail.fubuky35.wothelock.preference.SaveLoadManager;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Point;
-import android.preference.PreferenceManager;
 
 public class ReversiLock {
 	

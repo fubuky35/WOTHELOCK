@@ -1,4 +1,4 @@
-package com.gmail.fubuky35.wothelock.mail;
+﻿package com.gmail.fubuky35.wothelock.mail;
 
 import com.gmail.fubuky35.wothelock.R;
 import com.gmail.fubuky35.wothelock.preference.SaveLoadManager;

@@ -1,4 +1,4 @@
-package com.gmail.fubuky35.wothelock.reversi.model;
+﻿package com.gmail.fubuky35.wothelock.reversi.model;
 
 import com.gmail.fubuky35.wothelock.reversi.model.Cell.E_STATUS;
 

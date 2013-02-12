@@ -12,8 +12,8 @@
     <string name="save">保存</string>
     <string name="get_my_account">端末登録アカウント</string>
     <string name="pref_lock_enable">ロックを使用する</string>
-    <string name="pref_lock_setting">ロックパターンの設定</string>
-    <string name="pref_lock_setting_hint">ロックパターンを設定します</string>
+    <string name="pref_lock_setting">ロック解除パターンの設定</string>
+    <string name="pref_lock_setting_hint">ロック解除パターンを設定します</string>
     <string name="pref_mail_enable">アラートメールを送る</string>
     <string name="pref_mail_enable_hint">一定時間以内にロックが解除されなかった場合にアラートメールを送るよう設定します</string>
     <string name="pref_mail_time">メール送信待ち時間</string>
@@ -29,9 +29,9 @@
     
     <string name="msg_enable">有効</string>
     <string name="msg_disanable">無効</string>
-    <string name="msg_lock_pattern_nothing">有効なロックパターンが設定されていません</string>
-    <string name="msg_lock_pattern_detect">ロックパターンが設定されました</string>
-    <string name="msg_lock_disanable">「ロック画面を使用する」がチェックされていません</string>
+    <string name="msg_lock_pattern_nothing">有効なロック解除パターンが設定されていません</string>
+    <string name="msg_lock_pattern_detect">ロック解除パターンが設定されました</string>
+    <string name="msg_lock_disanable">「ロックを使用する」がチェックされていません</string>
     <string name="msg_mail_success">メールを送信しました</string>
     <string name="msg_mail_error">メールの送信に失敗しました</string>
     

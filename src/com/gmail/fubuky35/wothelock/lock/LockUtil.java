@@ -8,6 +8,8 @@ import com.gmail.fubuky35.wothelock.reversi.lock.ReversiLock;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.os.Build;
+import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
@@ -31,7 +33,6 @@ public class LockUtil{
 	// ロック画面用
 	private View mLockView = null;
 	private WindowManager mWindowManager = null;
-	
 	
 	public void lock( Context _c ){
 		

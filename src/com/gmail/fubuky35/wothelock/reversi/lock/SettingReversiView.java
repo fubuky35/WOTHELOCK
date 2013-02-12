@@ -13,8 +13,6 @@ import com.gmail.fubuky35.wothelock.reversi.model.IPlayerCallback;
 import com.gmail.fubuky35.wothelock.reversi.model.Player;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -26,7 +24,6 @@ import android.graphics.RectF;
 import android.graphics.Paint.Style;
 import android.graphics.Shader;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
@@ -491,15 +488,15 @@ public class SettingReversiView extends View implements IPlayerCallback, Runnabl
 		mPaintTextFg.setTextSize(fontSize);
 		String s;
 		
-		for(int i = 0;i < ReversiLock.LOCK_PATTERN_MAX_SIZE;++i){
-			s = NUMMBER_MARKS[i] + "";
-			if(i < mSettingCount){
-				s = s + "(" + mSettingPattern[i].x + "," + mSettingPattern[i].y + ")";
-			} else {
-				s = s + "None";
-			}
-			canvas.drawText(s, turn_circle_x, top + turn_text_y * (1 + 0.4f*i), mPaintTextFg);
-		}
+//		for(int i = 0;i < ReversiLock.LOCK_PATTERN_MAX_SIZE;++i){
+//			s = NUMMBER_MARKS[i] + "";
+//			if(i < mSettingCount){
+//				s = s + "(" + mSettingPattern[i].x + "," + mSettingPattern[i].y + ")";
+//			} else {
+//				s = s + "None";
+//			}
+//			canvas.drawText(s, turn_circle_x, top + turn_text_y * (1 + 0.4f*i), mPaintTextFg);
+//		}
 		
 		for(int i = 0;i < mSettingCount;++i){
 			Cell cell;

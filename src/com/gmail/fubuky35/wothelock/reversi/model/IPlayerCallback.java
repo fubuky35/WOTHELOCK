@@ -1,4 +1,4 @@
-package com.gmail.fubuky35.wothelock.reversi.model;
+﻿package com.gmail.fubuky35.wothelock.reversi.model;
 
 import android.graphics.Point;
 

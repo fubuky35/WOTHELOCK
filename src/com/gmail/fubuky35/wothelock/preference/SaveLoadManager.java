@@ -1,4 +1,4 @@
-package com.gmail.fubuky35.wothelock.preference;
+﻿package com.gmail.fubuky35.wothelock.preference;
 
 import com.gmail.fubuky35.wothelock.R;
 import com.gmail.fubuky35.wothelock.reversi.lock.ReversiLock;
