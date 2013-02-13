@@ -12,6 +12,7 @@ import android.telephony.TelephonyManager;
 public class LockService extends Service {
 
 	private TelephonyManager telephonyManager;
+	private boolean isVanishing = false;
 
 	private PhoneStateListener mPhoneStateListener = new PhoneStateListener() {
 		@Override
@@ -19,9 +20,11 @@ public class LockService extends Service {
 			// 着信中と通話中はロック画面を表示しない
 			if(state != TelephonyManager.CALL_STATE_IDLE && LockUtil.isShowen()){
 				LockUtil.getInstance().unlock();
-			} else if(state == TelephonyManager.CALL_STATE_IDLE){
+				isVanishing = true;
+			} else if(state == TelephonyManager.CALL_STATE_IDLE && isVanishing){
 				// 待ちうけ状態に戻ったらロックをセット
 				LockUtil.getInstance().lock(getApplicationContext());
+				isVanishing = false;
 			}
 		}
 	};
@@ -50,7 +53,11 @@ public class LockService extends Service {
 		if (intent != null && intent.getAction() != null) {
 
 			// ロック処理呼ぶ
-			LockUtil.getInstance().lock(this);
+			if(TelephonyManager.CALL_STATE_IDLE == telephonyManager.getCallState()){
+				LockUtil.getInstance().lock(this);
+			} else {
+				isVanishing = true;
+			}
 
 			if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB_MR2
 					&& Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
