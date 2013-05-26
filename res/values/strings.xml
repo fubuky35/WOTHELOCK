@@ -34,6 +34,7 @@
     <string name="msg_lock_disanable">「ロックを使用する」がチェックされていません</string>
     <string name="msg_mail_success">メールを送信しました</string>
     <string name="msg_mail_error">メールの送信に失敗しました</string>
+    <string name="msg_mail_save">メール設定を保存しました</string>
     
     <string name="string_minite">分</string>
     <string name="string_second">秒</string>

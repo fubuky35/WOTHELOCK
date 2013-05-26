@@ -5,8 +5,11 @@ import com.gmail.fubuky35.wothelock.preference.SaveLoadManager;
 import com.gmail.fubuky35.wothelock.reversi.GameStater;
 import com.gmail.fubuky35.wothelock.reversi.lock.ReversiLock;
 
+import android.app.Activity;
 import android.app.KeyguardManager;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -17,11 +20,16 @@ import android.view.WindowManager.LayoutParams;
 public class LockUtil{
 
 	private static boolean isShowen = false;
+	private static boolean isUnlock = false;
+	private static Thread unlocFlagTimer = null;
+	private static final long UNLOCK_FLAG_INTERVAL = 1800000;
 	
 	// めんどいからシングルトン
 	private static LockUtil instance = new LockUtil();
 	
 	private AlertMailThread mAlertMailThread = null;
+	
+	private Activity backgroundActivity = null;
 	
 	private LockUtil(){
 	}
@@ -35,8 +43,7 @@ public class LockUtil{
 	private WindowManager mWindowManager = null;
 	
 	public void lock( Context _c ){
-		
-		 System.out.println("LockUtil.lock");
+		System.out.println("LockUtil.lock");
 		
 		// 設定値を取得
 		SaveLoadManager sm =  SaveLoadManager.getInstance(_c);
@@ -45,6 +52,13 @@ public class LockUtil{
 		int lockCount = sm.loadLockPatternCount();
 		
 		if ( isLockEnabled && 0 < lockCount && !isShowen()){
+			System.out.println("lock show");
+			
+			setShowen(true);
+			
+			// 縦画面行程対策
+			creatBackgroundActivity(_c);
+			
 			// ロック有効の場合
 			
 			// ロック解除パターンのロード
@@ -64,20 +78,18 @@ public class LockUtil{
 			// SystemAlert
 			params.type = LayoutParams.TYPE_SYSTEM_ALERT;
 			
-			if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2){
+//			if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2){
 
 				// フラグセット
 				params.flags = WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | 
 						WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD;
-			}
+//			}
 			
 			// WindowManagerに追加
 			if ( mWindowManager == null ){
 				mWindowManager = (WindowManager)_c.getSystemService(Context.WINDOW_SERVICE);
 			}
 			mWindowManager.addView(mLockView, params);
-			
-			setShowen(true);
 			
 			GameStater.startGame();
 			
@@ -88,15 +100,42 @@ public class LockUtil{
 			
 		}else{
 			// ロックが無効
+			System.out.println("lock disable "+ isShowen());
 		}
 	}
 	
-	public void unlock(){
+	public synchronized void unlock(){
 		stoptMailThread();
+		
+		clearBackgroundActivity();
 		
 		// WindowManagerから削除
 		mWindowManager.removeView(mLockView);
+		
+		mLockView = null;
+		
 		setShowen(false);
+		
+		setUnlock(true);
+		
+		if(null == unlocFlagTimer){
+			unlocFlagTimer = new Thread(){
+				public void run() {
+					setName("UNLOCK FLAG TIMER");
+					try {
+						sleep(UNLOCK_FLAG_INTERVAL);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					setUnlock(false);
+					unlocFlagTimer = null;
+					System.out.println("unlocFlagTimer end");
+				}
+			};
+			
+			unlocFlagTimer.start();
+		}
+		
 	}
 	
 //	@Override
@@ -131,31 +170,59 @@ public class LockUtil{
 		}
 	}
 	
-	// キーガード用
-	private KeyguardManager mKeyguard = null;
-	private KeyguardManager.KeyguardLock mLock = null;
 	
-	public void disableKeyguard( Context _c ){
-		
-		// 初期化して
-		if ( mKeyguard == null ){
-			mKeyguard = (KeyguardManager)_c.getSystemService(Context.KEYGUARD_SERVICE);
-			mLock = mKeyguard.newKeyguardLock("LockUtil");
+	public static boolean isUnlock() {
+		return isUnlock;
+	}
+
+	public static void setUnlock(boolean isUnlock) {
+		LockUtil.isUnlock = isUnlock;
+	}
+
+	public synchronized void creatBackgroundActivity(Context c) {
+		if (null == this.backgroundActivity) {
+			Intent i = new Intent(c, NullActivity.class);
+			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			c.startActivity(i);
 		}
-		
-		// キーガードを無効化
-		mLock.disableKeyguard();
-		
 	}
 	
-	public void enableKeyguard(){
-		// キーガードを有効化
-		if ( mLock != null ){
-			mLock.reenableKeyguard();
-		}else{
-			// nullの場合は無効化されて無い
-		}
-		
+	public synchronized void setBackgroundActivity(Activity backgroundActivity) {
+		this.backgroundActivity = backgroundActivity;
 	}
+	
+	public synchronized void clearBackgroundActivity() {
+		if(null != backgroundActivity){
+			backgroundActivity.finish();
+			backgroundActivity = null;
+		}
+	}
+	
+//	// キーガード用
+//	private KeyguardManager mKeyguard = null;
+//	private KeyguardManager.KeyguardLock mLock = null;
+//	
+//	public void disableKeyguard( Context _c ){
+//		
+//		// 初期化して
+//		if ( mKeyguard == null ){
+//			mKeyguard = (KeyguardManager)_c.getSystemService(Context.KEYGUARD_SERVICE);
+//			mLock = mKeyguard.newKeyguardLock("LockUtil");
+//		}
+//		
+//		// キーガードを無効化
+//		mLock.disableKeyguard();
+//		
+//	}
+//	
+//	public void enableKeyguard(){
+//		// キーガードを有効化
+//		if ( mLock != null ){
+//			mLock.reenableKeyguard();
+//		}else{
+//			// nullの場合は無効化されて無い
+//		}
+//		
+//	}
 
 }

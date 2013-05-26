@@ -2,6 +2,8 @@
 
 import com.gmail.fubuky35.wothelock.lock.LockUtil;
 import com.gmail.fubuky35.wothelock.preference.SaveLoadManager;
+import com.gmail.fubuky35.wothelock.reversi.model.Cell;
+import com.gmail.fubuky35.wothelock.reversi.model.Cell.E_STATUS;
 
 import android.content.Context;
 import android.graphics.Point;
@@ -19,14 +21,16 @@ public class ReversiLock {
 	private static int mLockpatternLength;
 	private static int mCurrentCheck;
 	
+	private static final int MASTER_LOCK_LEN = 5;
+	private static int mMasterLockCount;
+	
 	private ReversiLock(){}
 	
 	public static void init(Context context){
-//		mLockpattern[0] = new Point(0, 0);
-//		mLockpattern[1] = new Point(7, 7);
-//		mLockpatternLength = 2;
+
 		load(context);
 		mCurrentCheck = 0;
+		mMasterLockCount = 0;
 	}
 	
 	private static void load(Context context){
@@ -35,14 +39,6 @@ public class ReversiLock {
 		mLockpatternLength = sm.loadLockPatternCount();
 		mLockpattern = sm.loadLockPattern();
 		
-//		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-//		mLockpatternLength = sp.getInt(KEY_HEAD + KEY_COUNT, 0);
-//		
-//		for(int i = 0;i < mLockpatternLength;++i){
-//			mLockpattern[i] = new Point();
-//			mLockpattern[i].x = sp.getInt(KEY_HEAD + KEY_X + i, 0);
-//			mLockpattern[i].y = sp.getInt(KEY_HEAD + KEY_Y + i, 0);
-//		}
 	}
 	
 	public static boolean checkLock(final Point checkPoint){
@@ -69,6 +65,23 @@ public class ReversiLock {
 		
 	}
 	
+	public static boolean checMasterkLock(final Cell cell){
+		
+		if(cell != null && cell.getStatus() == E_STATUS.Black ){
+			++mMasterLockCount;
+		} else {
+			mMasterLockCount = 0;
+		}
+		
+		System.out.println("checMasterkLock:"+mMasterLockCount);
+		
+		if(MASTER_LOCK_LEN == mMasterLockCount){
+			LockUtil.getInstance().unlock();
+			return true;
+		}
+		
+		return false;
+	}
 
 	
 }

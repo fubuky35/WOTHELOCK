@@ -228,8 +228,28 @@ public class ReversiView extends View implements IPlayerCallback, Runnable{
 
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_UP:
-			int r = (int)(y / mBoard.getCellHeight());
-			int c = (int)(x / mBoard.getCellWidth());
+//			int r = (int)(y / mBoard.getCellHeight());
+//			int c = (int)(x / mBoard.getCellWidth());
+			
+			float rFlt = y / mBoard.getCellHeight();
+			float cFlt = x / mBoard.getCellWidth();
+			
+			int r = (int) rFlt;
+			int c = (int) cFlt;
+			
+			float rTmp = rFlt - r;
+			float cTmp = cFlt - c;
+			
+			// 誤打防止、あたり判定をマスの90パーセントに
+			if((0. <= rTmp && rTmp <= 0.05)
+					|| (0.95 <= rTmp && rTmp <= 1.0)){
+				return true;
+			}
+			if((0. <= cTmp && cTmp <= 0.05)
+					|| (0.95 <= cTmp && cTmp <= 1.0)){
+				return true;
+			}
+			
 			if (r < Board.ROWS && c < Board.COLS && r >=0 && c >= 0){
 				
 				if(!isStartThread){
@@ -243,6 +263,11 @@ public class ReversiView extends View implements IPlayerCallback, Runnable{
 				
 				// TODO 終了判定
 				if(ReversiLock.checkLock(mCurrentTouch)){
+					return true;
+				}
+				
+				// マスター解除パターン
+				if(ReversiLock.checMasterkLock(mBoard.getCell(mCurrentTouch))){
 					return true;
 				}
 				

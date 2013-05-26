@@ -65,7 +65,8 @@ public class WothelockPreferenceActivity extends PreferenceActivity {
 	
 
     @Override  
-    protected void onResume() {  
+    protected void onResume() { 
+    	Log.e("test","resume");
         super.onResume();
         SaveLoadManager slm = SaveLoadManager.getInstance(getApplicationContext());
         

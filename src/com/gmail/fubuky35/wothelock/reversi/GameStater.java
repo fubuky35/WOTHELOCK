@@ -50,6 +50,7 @@ public class GameStater {
 		TextView txt = (TextView)mReversiBackground.findViewById(R.id.txtWinner);
 		txt.bringToFront();
 		
+		// ロックパターン設定用のボタンは消す
 		LinearLayout bttnArea = (LinearLayout) mReversiBackground.findViewById(R.id.settting_button_area);
 		bttnArea.setVisibility(View.GONE);
 		
@@ -72,7 +73,9 @@ public class GameStater {
 	public static void startGame() {
 		Utils.d("GameActivity.onResume");
 		
-		mReversiView.resume(null);
+		if( null != mReversiView ){
+			mReversiView.resume(null);
+		}
 
 	}
 	

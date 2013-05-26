@@ -122,6 +122,7 @@ public class SettingMailActivity extends Activity implements OnClickListener{
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btn_mail_ok:
+			Toast.makeText(getApplicationContext(), R.string.msg_mail_save, Toast.LENGTH_SHORT).show();
 			save();
 			finish();
 			break;

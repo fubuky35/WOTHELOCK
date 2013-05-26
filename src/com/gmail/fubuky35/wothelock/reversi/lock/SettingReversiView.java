@@ -230,8 +230,28 @@ public class SettingReversiView extends View implements IPlayerCallback, Runnabl
 
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_UP:
-			int r = (int)(y / mBoard.getCellHeight());
-			int c = (int)(x / mBoard.getCellWidth());
+//			int r = (int)(y / mBoard.getCellHeight());
+//			int c = (int)(x / mBoard.getCellWidth());
+			
+			float rFlt = y / mBoard.getCellHeight();
+			float cFlt = x / mBoard.getCellWidth();
+			
+			int r = (int) rFlt;
+			int c = (int) cFlt;
+			
+			float rTmp = rFlt - r;
+			float cTmp = cFlt - c;
+			
+			// 誤打防止、あたり判定をマスの90パーセントに
+			if((0. <= rTmp && rTmp <= 0.05)
+					|| (0.95 <= rTmp && rTmp <= 1.0)){
+				return true;
+			}
+			if((0. <= cTmp && cTmp <= 0.05)
+					|| (0.95 <= cTmp && cTmp <= 1.0)){
+				return true;
+			}
+			
 			if (r < Board.ROWS && c < Board.COLS && r >=0 && c >= 0){
 				
 				mCurrentTouch = new Point(c, r);
