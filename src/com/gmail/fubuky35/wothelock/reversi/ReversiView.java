@@ -13,6 +13,7 @@ import com.gmail.fubuky35.wothelock.reversi.model.IPlayerCallback;
 import com.gmail.fubuky35.wothelock.reversi.model.Player;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -71,6 +72,7 @@ public class ReversiView extends View implements IPlayerCallback, Runnable{
 	
 	private Point mCurrentTouch = null;
 	private boolean isStartThread = false;
+	private int mOrientation = Configuration.ORIENTATION_PORTRAIT;
 	
 	public ReversiView(Context context) {
 		super(context);
@@ -150,11 +152,19 @@ public class ReversiView extends View implements IPlayerCallback, Runnable{
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
 		
-		this.mWidth = getWidth();
-		this.mHeight = getHeight();
-		mBoard.setSize(this.mWidth, this.mHeight);
+		boolean isChangeScreen = false;
+		int width = getWidth();
+		int hight = getHeight();
 		
-		if (mBitmapBlack == null){
+		if(this.mWidth != width || this.mHeight != hight){
+			isChangeScreen = true;
+			this.mWidth = width;
+			this.mHeight = hight;
+		}
+		
+		mBoard.setSize(width, hight);
+		
+		if (mBitmapBlack == null || isChangeScreen){
 			loadBitmap();
 		}
 		
@@ -162,9 +172,6 @@ public class ReversiView extends View implements IPlayerCallback, Runnable{
 	}
 	
 	private void loadBitmap(){
-		float cw = mBoard.getCellWidth();
-		float ch = mBoard.getCellHeight();
-		int INSET = (int)(cw * CELL_SIZE_FACTOR * 0.3);
 		Resources res = this.getContext().getResources();
 
 		try {
@@ -174,7 +181,10 @@ public class ReversiView extends View implements IPlayerCallback, Runnable{
 		} catch (Exception ex) {
 			Utils.d(ex.getMessage());
 		}
-
+		
+		float cw = mBoard.getCellWidth();
+		float ch = mBoard.getCellHeight();
+		int INSET = (int)(cw * CELL_SIZE_FACTOR * 0.3);
 		try {
 			//黒のコマ
 			Bitmap black = BitmapFactory.decodeResource(res, R.drawable.b1);
@@ -346,7 +356,11 @@ public class ReversiView extends View implements IPlayerCallback, Runnable{
 	
 	@Override
 	public void onProgress() {
-		invalidate(0, (int)mBoard.getRectF().bottom, mWidth, mHeight);
+		if(mOrientation == Configuration.ORIENTATION_PORTRAIT){
+			invalidate(0, (int)mBoard.getRectF().bottom, mWidth, mHeight);
+		} else {
+			invalidate((int)mBoard.getRectF().right, 0, mWidth, mHeight);
+		}
 	}
 	
 	@Override
@@ -495,30 +509,54 @@ public class ReversiView extends View implements IPlayerCallback, Runnable{
 	}
 
 	private void drawStatus(Canvas canvas){
-		Resources res = getResources();  
+		Resources res = getResources(); 
+		Configuration conf = res.getConfiguration();
+		mOrientation = conf.orientation;
+				
 		float turn_rect_inset = res.getDimension(R.dimen.turn_rect_inset); 
 		float turn_rect_round = res.getDimension(R.dimen.turn_rect_round); 
 		float turn_circle_x = res.getDimension(R.dimen.turn_circle_x); 
 		float turn_circle_y = res.getDimension(R.dimen.turn_circle_y); 
 		float turn_text_x = res.getDimension(R.dimen.turn_text_x); 
-		float turn_text_y = res.getDimension(R.dimen.turn_text_y); 
-		float top = mBoard.getRectF().bottom + mBoard.getRectF().top;
-		float center = mBoard.getRectF().width() / 2f;
+		float turn_text_y = res.getDimension(R.dimen.turn_text_y);
+		
+		float top;
+		float center;
+		float left;
+		
+		Shader shader;
+		
+
+		
+		// 縦横判定
+		if(mOrientation == Configuration.ORIENTATION_PORTRAIT){
+			// 縦
+			top = mBoard.getRectF().bottom + mBoard.getRectF().top;
+			center = mBoard.getRectF().width() / 2f;
+			left = 0;
+			shader = new RadialGradient(mWidth/2f, top * 0.9f, mWidth * 0.7f, mPaintScreenBg2.getColor(), mPaintScreenBg.getColor(), Shader.TileMode.CLAMP);
+		} else {
+			// 横
+			top = mBoard.getRectF().top;
+			center = (mWidth - mBoard.getRectF().right) / 2f;
+			left =  mBoard.getRectF().right +  mBoard.getRectF().top;
+			shader = new RadialGradient((mWidth - mHeight)/2f, top * 0.9f, mWidth * 0.7f, mPaintScreenBg2.getColor(), mPaintScreenBg.getColor(), Shader.TileMode.CLAMP);
+		}
 
 		//ボード以外の余白部分の背景
 //		Shader shader = new LinearGradient(mWidth/2, top + (mHeight - top) * 0.5f, mWidth/2, mHeight, mPaintScreenBg.getColor(), mPaintScreenBg2.getColor(), Shader.TileMode.CLAMP);  
-		Shader shader = new RadialGradient(mWidth/2f, top * 0.9f, mWidth * 0.7f, mPaintScreenBg2.getColor(), mPaintScreenBg.getColor(), Shader.TileMode.CLAMP);  
+		// Shader shader = new RadialGradient(mWidth/2f, top * 0.9f, mWidth * 0.7f, mPaintScreenBg2.getColor(), mPaintScreenBg.getColor(), Shader.TileMode.CLAMP);  
 		Paint  paint = new Paint( mPaintScreenBg);  
 		paint.setShader(shader);  
-		canvas.drawRect(0, top, mWidth, mHeight, paint);
-
+		canvas.drawRect(left, top, mWidth, mHeight, paint);
+		
 
 		if (!mBoard.isFinished()){
 			RectF rect;
 			if (mBoard.getTurn() == E_STATUS.Black){
-				rect = new RectF(turn_rect_inset, top + turn_rect_inset, center - turn_rect_inset, mHeight - turn_rect_inset);
+				rect = new RectF(left + turn_rect_inset, top + turn_rect_inset, left + center - turn_rect_inset, mHeight - turn_rect_inset);
 			} else {
-				rect = new RectF(center + turn_rect_inset, top + turn_rect_inset, mWidth - turn_rect_inset, mHeight - turn_rect_inset);
+				rect = new RectF(left + center + turn_rect_inset, top + turn_rect_inset, mWidth - turn_rect_inset, mHeight - turn_rect_inset);
 			}
 			mPaintTurnRect.setStyle(Style.FILL);
 			mPaintTurnRect.setAlpha(128);
@@ -531,25 +569,25 @@ public class ReversiView extends View implements IPlayerCallback, Runnable{
 		float circle_w = mBoard.getCellWidth() * CELL_SIZE_FACTOR;
 		
 		//黒の円
-		canvas.drawCircle(turn_circle_x, top + turn_circle_y, circle_w, mPaintCellFgB);
+		canvas.drawCircle(left + turn_circle_x, top + turn_circle_y, circle_w, mPaintCellFgB);
 		
 		//白の円（外枠付）
-		canvas.drawCircle(center + turn_circle_x, top + turn_circle_y, circle_w, mPaintCellFgB);
-		canvas.drawCircle(center + turn_circle_x, top + turn_circle_y, circle_w * 0.94f, mPaintCellFgW);
+		canvas.drawCircle(left + center + turn_circle_x, top + turn_circle_y, circle_w, mPaintCellFgB);
+		canvas.drawCircle(left + center + turn_circle_x, top + turn_circle_y, circle_w * 0.94f, mPaintCellFgW);
 
 		//各プレーヤーのコマ数を表示
 		int fontSize = res.getDimensionPixelSize(R.dimen.font_size_status); 
 		mPaintTextFg.setTextSize(fontSize);
 		String s = String.valueOf(mBoard.countCells(E_STATUS.Black));
-		canvas.drawText(s, turn_text_x, top + turn_text_y, mPaintTextFg);				//黒のコマ数
+		canvas.drawText(s, left + turn_text_x, top + turn_text_y, mPaintTextFg);				//黒のコマ数
 		s = String.valueOf(mBoard.countCells(E_STATUS.White));
-		canvas.drawText(s, center + turn_text_x, top + turn_text_y, mPaintTextFg);		//白のコマ数
+		canvas.drawText(s, left + center + turn_text_x, top + turn_text_y, mPaintTextFg);		//白のコマ数
 
 		//各プレーヤーの名前を表示
 		int fontSizeName = res.getDimensionPixelSize(R.dimen.font_size_name); 
 		mPaintTextFg.setTextSize(fontSizeName);
-		canvas.drawText(mBoard.getPlayer1().getName(), turn_circle_x, top + turn_text_y*1.8f, mPaintTextFg);			//黒の名前
-		canvas.drawText(mBoard.getPlayer2().getName(), center + turn_circle_x, top + turn_text_y*1.8f, mPaintTextFg);   //白の名前					
+		canvas.drawText(mBoard.getPlayer1().getName(), left + turn_circle_x, top + turn_text_y*1.8f, mPaintTextFg);			//黒の名前
+		canvas.drawText(mBoard.getPlayer2().getName(), left + center + turn_circle_x, top + turn_text_y*1.8f, mPaintTextFg);   //白の名前					
 
 		
 		//コンピュータの思考中の場合は進捗状況を表示。
@@ -603,8 +641,13 @@ public class ReversiView extends View implements IPlayerCallback, Runnable{
 //		canvas.drawRect(mBoard.getRectF(), paintBg);
 		
 //		GameActivity activity =  (GameActivity)this.getContext();
+		
 		GameStater.showWinner(s);
 		
+		// TODO 勝利解除
+		if(winner.isHuman()){
+			ReversiLock.checkGameWinLock();
+		}
 	}
 
 	
@@ -699,8 +742,14 @@ public class ReversiView extends View implements IPlayerCallback, Runnable{
 					}
 				}
 			
+				// TODO 横画面対応
 				//画面下部のステータス表示領域を再描画
-				invalidate(0, (int)mBoard.getRectF().bottom, mWidth, mHeight);
+				// invalidate();
+				if(mOrientation == Configuration.ORIENTATION_PORTRAIT){
+					invalidate(0, (int)mBoard.getRectF().bottom, mWidth, mHeight);
+				} else {
+					invalidate((int)mBoard.getRectF().right, 0, mWidth, mHeight);
+				}
 			}
 		});
 	}

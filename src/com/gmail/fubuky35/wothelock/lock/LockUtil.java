@@ -5,14 +5,7 @@ import com.gmail.fubuky35.wothelock.preference.SaveLoadManager;
 import com.gmail.fubuky35.wothelock.reversi.GameStater;
 import com.gmail.fubuky35.wothelock.reversi.lock.ReversiLock;
 
-import android.app.Activity;
-import android.app.KeyguardManager;
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.os.Build;
-import android.telephony.TelephonyManager;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
@@ -28,8 +21,6 @@ public class LockUtil{
 	private static LockUtil instance = new LockUtil();
 	
 	private AlertMailThread mAlertMailThread = null;
-	
-	private Activity backgroundActivity = null;
 	
 	private LockUtil(){
 	}
@@ -55,9 +46,6 @@ public class LockUtil{
 			System.out.println("lock show");
 			
 			setShowen(true);
-			
-			// 縦画面行程対策
-			creatBackgroundActivity(_c);
 			
 			// ロック有効の場合
 			
@@ -106,8 +94,6 @@ public class LockUtil{
 	
 	public synchronized void unlock(){
 		stoptMailThread();
-		
-		clearBackgroundActivity();
 		
 		// WindowManagerから削除
 		mWindowManager.removeView(mLockView);
@@ -179,24 +165,6 @@ public class LockUtil{
 		LockUtil.isUnlock = isUnlock;
 	}
 
-	public synchronized void creatBackgroundActivity(Context c) {
-		if (null == this.backgroundActivity) {
-			Intent i = new Intent(c, NullActivity.class);
-			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			c.startActivity(i);
-		}
-	}
-	
-	public synchronized void setBackgroundActivity(Activity backgroundActivity) {
-		this.backgroundActivity = backgroundActivity;
-	}
-	
-	public synchronized void clearBackgroundActivity() {
-		if(null != backgroundActivity){
-			backgroundActivity.finish();
-			backgroundActivity = null;
-		}
-	}
 	
 //	// キーガード用
 //	private KeyguardManager mKeyguard = null;

@@ -20,6 +20,7 @@ public class SaveLoadManager {
 	private static String mKeyLockPatternCount = null;
 	private static String mKeyLockPatternX = null;
 	private static String mKeyLockPatternY = null;
+	private static String mKeyWinLockEnable = null;
 	
 	private static String mKeyAlertMailEnable = null;
 	private static String mKeyFromAccount = null;
@@ -54,6 +55,7 @@ public class SaveLoadManager {
 		mKeyLockPatternCount = context.getString(R.string.key_lock_pattern_count);
 		mKeyLockPatternX = context.getString(R.string.key_lock_pattern_x);
 		mKeyLockPatternY = context.getString(R.string.key_lock_pattern_y);
+		mKeyWinLockEnable  = context.getString(R.string.key_win_lock_enable);
 		
 		mKeyAlertMailEnable = context.getString(R.string.key_mail_enable);
 		mKeyFromAccount = context.getString(R.string.key_mail_from_account);
@@ -91,6 +93,10 @@ public class SaveLoadManager {
 	
 	public boolean loadLockEnable() {
 		return mSharedPreferences.getBoolean(mKeyLockEnable, false);
+	}
+	
+	public boolean loadWinLockEnable() {
+		return mSharedPreferences.getBoolean(mKeyWinLockEnable, true);
 	}
 	
 	public boolean loadAlertMailEnable() {

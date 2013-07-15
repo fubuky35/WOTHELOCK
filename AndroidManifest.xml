@@ -31,27 +31,15 @@
         <service android:name=".lock.LockService" />
 
         <activity
-            android:name=".reversi.lock.SettingReversiLockActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="keyboardHidden|orientation" />
+            android:name=".reversi.lock.SettingReversiLockActivity" />
         <activity
-             android:name=".preference.WothelockPreferenceActivity"
-              android:screenOrientation="portrait"
-              android:configChanges="keyboardHidden|orientation" >
+             android:name=".preference.WothelockPreferenceActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".mail.SettingMailActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="keyboardHidden|orientation" />
-        <activity
-            android:name=".lock.NullActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:screenOrientation="portrait"
-            android:configChanges="keyboardHidden|orientation"
-            android:clearTaskOnLaunch="true" />
+        <activity android:name=".mail.SettingMailActivity" />
     </application>
 
 </manifest>

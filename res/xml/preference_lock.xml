@@ -22,5 +22,9 @@
         android:key="@string/key_lock_test"
         android:summary="@string/lock_test_hint"
         android:title="@string/lock_test" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="@string/key_win_lock_enable"
+        android:title="@string/pref_win_lock_enable" />
 
 </PreferenceScreen>

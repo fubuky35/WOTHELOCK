@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.gmail.fubuky35.wothelock.R;
 import com.gmail.fubuky35.wothelock.preference.SaveLoadManager;
+import com.gmail.fubuky35.wothelock.reversi.GameStater;
 import com.gmail.fubuky35.wothelock.reversi.Utils;
 import com.gmail.fubuky35.wothelock.reversi.model.Board;
 import com.gmail.fubuky35.wothelock.reversi.model.Cell;
@@ -222,6 +223,7 @@ public class SettingReversiView extends View implements IPlayerCallback, Runnabl
 		// 終了後はタッチで次のゲームへ
 		if (mBoard.isFinished()){
 			init(true);
+			GameStater.clearWinner();
 			return true;
 		}
 		

@@ -14,6 +14,7 @@
     <string name="pref_lock_enable">ロックを使用する</string>
     <string name="pref_lock_setting">ロック解除パターンの設定</string>
     <string name="pref_lock_setting_hint">ロック解除パターンを設定します</string>
+    <string name="pref_win_lock_enable">ゲームに勝利でロックを解除する</string>
     <string name="pref_mail_enable">アラートメールを送る</string>
     <string name="pref_mail_enable_hint">一定時間以内にロックが解除されなかった場合にアラートメールを送るよう設定します</string>
     <string name="pref_mail_time">メール送信待ち時間</string>
@@ -51,6 +52,7 @@
     <string name="key_lock_pattern_x">lock_pattern_x</string>
     <string name="key_lock_pattern_y">lock_pattern_y</string>
     <string name="key_lock_test">lock_test</string>
+    <string name="key_win_lock_enable">win_lock_enable</string>
     <string name="key_mail_enable">mail_enable</string>
     <string name="key_mail_from_account">mail_from_account</string>
     <string name="key_mail_from_password">mail_from_password</string>

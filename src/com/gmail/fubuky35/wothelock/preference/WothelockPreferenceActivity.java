@@ -144,7 +144,7 @@ public class WothelockPreferenceActivity extends PreferenceActivity {
 				public boolean onPreferenceClick(Preference preference) {
 					SaveLoadManager sm = SaveLoadManager
 							.getInstance(getActivity());
-
+					
 					if (0 == sm.loadLockPatternCount()) {
 						Toast.makeText(getActivity(),
 								R.string.msg_lock_pattern_nothing,

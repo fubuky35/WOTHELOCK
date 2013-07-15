@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.gmail.fubuky35.wothelock.R;
 import com.gmail.fubuky35.wothelock.preference.SaveLoadManager;
 
+import android.R.color;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
@@ -21,7 +22,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 

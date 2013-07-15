@@ -76,6 +76,9 @@ public class GameStater {
 		if( null != mReversiView ){
 			mReversiView.resume(null);
 		}
+		
+		TextView txt = (TextView)mReversiBackground.findViewById(R.id.txtWinner);
+		txt.setText("");
 
 	}
 	
@@ -140,5 +143,10 @@ public class GameStater {
 			vwBack.startAnimation(mAnimGrayout);
 			vwBack.setVisibility(View.INVISIBLE);
 		}
+	}
+	
+	public static void clearWinner(){
+		TextView txt = (TextView)mReversiBackground.findViewById(R.id.txtWinner);
+		txt.setText("");
 	}
 }

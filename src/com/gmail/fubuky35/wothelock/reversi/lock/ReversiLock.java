@@ -20,8 +20,21 @@ public class ReversiLock {
 	private static Point[] mLockpattern = new Point[LOCK_PATTERN_MAX_SIZE];
 	private static int mLockpatternLength;
 	private static int mCurrentCheck;
+	private static boolean isWinLockEnable;
 	
-	private static final int MASTER_LOCK_LEN = 5;
+	private static E_STATUS MASTER_LOCK_PATTERN[] = {
+		E_STATUS.Black,
+		E_STATUS.White,
+		E_STATUS.Black,
+		E_STATUS.White,
+		E_STATUS.Black,
+		E_STATUS.Black,
+		E_STATUS.White,
+		E_STATUS.White,
+		E_STATUS.White,
+	};
+	
+	private static final int MASTER_LOCK_LEN  = MASTER_LOCK_PATTERN.length;
 	private static int mMasterLockCount;
 	
 	private ReversiLock(){}
@@ -38,6 +51,7 @@ public class ReversiLock {
 
 		mLockpatternLength = sm.loadLockPatternCount();
 		mLockpattern = sm.loadLockPattern();
+		isWinLockEnable = sm.loadWinLockEnable();
 		
 	}
 	
@@ -67,7 +81,7 @@ public class ReversiLock {
 	
 	public static boolean checMasterkLock(final Cell cell){
 		
-		if(cell != null && cell.getStatus() == E_STATUS.Black ){
+		if(cell != null && cell.getStatus() == MASTER_LOCK_PATTERN[mMasterLockCount] ){
 			++mMasterLockCount;
 		} else {
 			mMasterLockCount = 0;
@@ -83,5 +97,9 @@ public class ReversiLock {
 		return false;
 	}
 
-	
+	public static void checkGameWinLock(){
+		if(isWinLockEnable){
+			LockUtil.getInstance().unlock();
+		}
+	}
 }
